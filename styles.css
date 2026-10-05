@@ -596,6 +596,17 @@ h2 {
   margin-bottom: 32px;
 }
 
+.gallery-gender-section + .gallery-gender-section {
+  margin-top: 42px;
+}
+
+.gallery-gender-section h3 {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 22px;
+}
+
 .gallery-filters {
   display: flex;
   gap: 5px;

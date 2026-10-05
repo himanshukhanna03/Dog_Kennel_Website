@@ -46,90 +46,99 @@ const videoFiles = [
 ].map((time) => `WhatsApp Video 2026-09-26 at ${time}.mp4`);
 
 const galleryItems = [
+  // Temporary even/odd split for layout testing; replace with confirmed gender assignments.
   ...photoFiles.map((file, index) => ({
     type: "photo",
+    gender: index % 2 === 0 ? "male" : "female",
     src: `assests/${file}`,
     alt: `Dog at Kyra Kennels, photo ${index + 1}`,
     label: "A day at the kennels"
   })),
   ...videoFiles.map((file, index) => ({
     type: "video",
+    gender: index % 2 === 0 ? "male" : "female",
     src: `assests/${file}`,
     label: `Kennel moments ${index + 1}`
   }))
 ];
 
-const galleryGrid = document.querySelector("#gallery-grid");
+const galleryGrids = [...document.querySelectorAll("[data-gallery-grid]")];
 const galleryMore = document.querySelector("#gallery-more");
 const filterButtons = [...document.querySelectorAll(".filter-button")];
 const pageSize = 8;
 let activeFilter = "all";
 let visibleCount = pageSize;
 
-function getFilteredItems() {
-  return activeFilter === "all"
-    ? galleryItems
-    : galleryItems.filter((item) => item.type === activeFilter);
+function getFilteredItems(gender) {
+  return galleryItems.filter((item) =>
+    item.gender === gender && (activeFilter === "all" || item.type === activeFilter)
+  );
 }
 
 function renderGallery() {
-  if (!galleryGrid) return;
+  if (!galleryGrids.length) return;
 
-  const items = getFilteredItems();
-  galleryGrid.replaceChildren();
+  galleryGrids.forEach((galleryGrid) => {
+    const gender = galleryGrid.dataset.galleryGender;
+    const items = getFilteredItems(gender);
+    galleryGrid.replaceChildren();
 
-  items.slice(0, visibleCount).forEach((item) => {
-    const figure = document.createElement("figure");
-    figure.className = "gallery-item";
-    const mediaWrap = document.createElement("div");
-    mediaWrap.className = "gallery-media-wrap";
+    items.slice(0, visibleCount).forEach((item) => {
+      const figure = document.createElement("figure");
+      figure.className = "gallery-item";
+      const mediaWrap = document.createElement("div");
+      mediaWrap.className = "gallery-media-wrap";
 
-    const media = item.type === "video"
-      ? document.createElement("video")
-      : document.createElement("img");
-    media.src = item.src;
+      const media = item.type === "video"
+        ? document.createElement("video")
+        : document.createElement("img");
+      media.src = item.src;
 
-    if (item.type === "video") {
-      media.controls = true;
-      media.preload = "none";
-      media.poster = `assests/${photoFiles[galleryItems.indexOf(item) % photoFiles.length]}`;
-      media.setAttribute("aria-label", item.label);
-      const openButton = document.createElement("button");
-      openButton.className = "gallery-open video-open";
-      openButton.type = "button";
-      openButton.dataset.galleryIndex = String(galleryItems.indexOf(item));
-      openButton.setAttribute("aria-label", `Open ${item.label}`);
-      openButton.textContent = "Expand video";
-      mediaWrap.append(media, openButton);
-    } else {
-      media.alt = item.alt;
-      media.loading = "lazy";
-      media.decoding = "async";
-      const openButton = document.createElement("button");
-      openButton.className = "gallery-open";
-      openButton.type = "button";
-      openButton.dataset.galleryIndex = String(galleryItems.indexOf(item));
-      openButton.setAttribute("aria-label", `Open photo ${galleryItems.indexOf(item) + 1}`);
-      const openLabel = document.createElement("span");
-      openLabel.className = "gallery-open-label";
-      openLabel.textContent = "View photo";
-      openButton.append(media, openLabel);
-      mediaWrap.append(openButton);
-    }
+      if (item.type === "video") {
+        media.controls = true;
+        media.preload = "none";
+        media.poster = `assests/${photoFiles[galleryItems.indexOf(item) % photoFiles.length]}`;
+        media.setAttribute("aria-label", item.label);
+        const openButton = document.createElement("button");
+        openButton.className = "gallery-open video-open";
+        openButton.type = "button";
+        openButton.dataset.galleryIndex = String(galleryItems.indexOf(item));
+        openButton.setAttribute("aria-label", `Open ${item.label}`);
+        openButton.textContent = "Expand video";
+        mediaWrap.append(media, openButton);
+      } else {
+        media.alt = item.alt;
+        media.loading = "lazy";
+        media.decoding = "async";
+        const openButton = document.createElement("button");
+        openButton.className = "gallery-open";
+        openButton.type = "button";
+        openButton.dataset.galleryIndex = String(galleryItems.indexOf(item));
+        openButton.setAttribute("aria-label", `Open photo ${galleryItems.indexOf(item) + 1}`);
+        const openLabel = document.createElement("span");
+        openLabel.className = "gallery-open-label";
+        openLabel.textContent = "View photo";
+        openButton.append(media, openLabel);
+        mediaWrap.append(openButton);
+      }
 
-    const caption = document.createElement("figcaption");
-    const label = document.createElement("span");
-    label.textContent = item.label;
-    const type = document.createElement("span");
-    type.className = "media-type";
-    type.textContent = item.type;
-    caption.append(label, type);
-    figure.append(mediaWrap, caption);
-    galleryGrid.append(figure);
+      const caption = document.createElement("figcaption");
+      const label = document.createElement("span");
+      label.textContent = item.label;
+      const type = document.createElement("span");
+      type.className = "media-type";
+      type.textContent = item.type;
+      caption.append(label, type);
+      figure.append(mediaWrap, caption);
+      galleryGrid.append(figure);
+    });
+
+    galleryGrid.setAttribute("aria-busy", "false");
   });
 
-  galleryGrid.setAttribute("aria-busy", "false");
-  galleryMore.hidden = items.length <= visibleCount;
+  galleryMore.hidden = galleryGrids.every((galleryGrid) =>
+    getFilteredItems(galleryGrid.dataset.galleryGender).length <= visibleCount
+  );
 }
 
 const mediaDialog = document.querySelector("#media-dialog");
@@ -137,9 +146,10 @@ const mediaDialogContent = document.querySelector("#media-dialog-content");
 const mediaDialogTitle = document.querySelector("#media-dialog-title");
 const mediaCounter = document.querySelector("#media-counter");
 let viewerIndex = 0;
+let viewerGender = "male";
 
 function renderViewer() {
-  const items = getFilteredItems();
+  const items = getFilteredItems(viewerGender);
   if (!items.length || !mediaDialogContent) return;
 
   viewerIndex = (viewerIndex + items.length) % items.length;
@@ -158,23 +168,28 @@ function renderViewer() {
     media.alt = item.alt;
   }
 
-  mediaDialogTitle.textContent = item.label;
+  mediaDialogTitle.textContent = `${viewerGender === "male" ? "Male" : "Female"} dogs — ${item.label}`;
   mediaCounter.textContent = `${viewerIndex + 1} / ${items.length}`;
   mediaDialogContent.replaceChildren(media);
   if (item.type === "video") media.play().catch(() => {});
 }
 
-function openGalleryItem(globalIndex) {
-  const items = getFilteredItems();
+function openGalleryItem(globalIndex, gender) {
+  viewerGender = gender;
+  const items = getFilteredItems(gender);
   viewerIndex = items.findIndex((item) => galleryItems.indexOf(item) === globalIndex);
   if (viewerIndex < 0) return;
   if (!mediaDialog.open) mediaDialog.showModal();
   renderViewer();
 }
 
-galleryGrid?.addEventListener("click", (event) => {
-  const openButton = event.target.closest("[data-gallery-index]");
-  if (openButton) openGalleryItem(Number(openButton.dataset.galleryIndex));
+galleryGrids.forEach((galleryGrid) => {
+  galleryGrid.addEventListener("click", (event) => {
+    const openButton = event.target.closest("[data-gallery-index]");
+    if (openButton) {
+      openGalleryItem(Number(openButton.dataset.galleryIndex), galleryGrid.dataset.galleryGender);
+    }
+  });
 });
 
 document.querySelector("#media-dialog-close")?.addEventListener("click", () => {

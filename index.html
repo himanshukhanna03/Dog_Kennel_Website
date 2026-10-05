@@ -28,6 +28,7 @@
 			<a href="#services">Services</a>
 			<a href="#gallery">Gallery</a>
 			<a href="#breeds">Breeds</a>
+			<a href="#breeding-plan">Breeding Plan</a>
 			<a href="#about">About</a>
 			<a href="#contact">Contact</a>
 			<a class="nav-cta" href="#contact">Make an enquiry <span aria-hidden="true">&rarr;</span></a>
@@ -80,7 +81,14 @@
 			<div class="section-heading gallery-heading"><div><p class="eyebrow">A peek at kennel life</p><h2 id="gallery-title">Out and about, <em>being dogs.</em></h2></div>
 				<div class="gallery-filters" role="group" aria-label="Filter gallery media"><button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button><button class="filter-button" type="button" data-filter="photo" aria-pressed="false">Photos</button><button class="filter-button" type="button" data-filter="video" aria-pressed="false">Videos</button></div>
 			</div>
-			<div class="gallery-grid" id="gallery-grid" aria-live="polite" aria-busy="true"></div>
+			<section class="gallery-gender-section" aria-labelledby="male-gallery-title">
+				<h3 id="male-gallery-title">Male dogs</h3>
+				<div class="gallery-grid" data-gallery-grid data-gallery-gender="male" aria-live="polite" aria-busy="true"></div>
+			</section>
+			<section class="gallery-gender-section" aria-labelledby="female-gallery-title">
+				<h3 id="female-gallery-title">Female dogs</h3>
+				<div class="gallery-grid" data-gallery-grid data-gallery-gender="female" aria-live="polite" aria-busy="true"></div>
+			</section>
 			<button class="button button-outline gallery-more" id="gallery-more" type="button">Show more <span aria-hidden="true">&darr;</span></button>
 			<dialog class="media-dialog" id="media-dialog" aria-labelledby="media-dialog-title"><div class="media-dialog-bar"><p id="media-dialog-title">Gallery</p><button class="media-dialog-close" id="media-dialog-close" type="button" aria-label="Close media viewer">&times;</button></div><div class="media-dialog-content" id="media-dialog-content"></div><div class="media-dialog-controls"><button class="viewer-control" id="media-previous" type="button">&larr; Previous</button><span id="media-counter" aria-live="polite"></span><button class="viewer-control" id="media-next" type="button">Next &rarr;</button></div></dialog>
 			<noscript><p class="noscript-note">Turn on JavaScript to browse the kennel photo and video gallery.</p></noscript>
@@ -101,9 +109,11 @@
 		<section class="section-band breed-principles" id="breeds" aria-labelledby="breed-index-title">
 			<div class="section-wrap"><header class="about-intro"><p class="eyebrow">Heritage, health, and excellence</p><h2 id="breed-index-title">Preserving excellence. <em>Breeding legends.</em></h2><p class="about-lead">We are dedicated custodians of the Tibetan Mastiff, South African Boerboel, and Caucasian Shepherd, preserving the authentic character, working ability, and noble temperament that define these breeds.</p></header>
 				<div class="breed-grid"><article class="breed-item"><h3>Tibetan Mastiff</h3><p>We honour its unwavering loyalty and majestic presence as a guardian shaped by its heritage.</p><a class="service-link" href="tibetan-mastiffs.html">Full Tibetan Mastiff details <span aria-hidden="true">&rarr;</span></a></article><article class="breed-item"><h3>South African Boerboel</h3><p>We value its confident and family-oriented nature, strength, intelligence, courage, and loyalty.</p><a class="service-link" href="boerboels.html">Full Boerboel details <span aria-hidden="true">&rarr;</span></a></article><article class="breed-item"><h3>Caucasian Shepherd</h3><p>We respect its fearless protective instincts, powerful presence, and loyal character.</p><a class="service-link" href="caucasian-shepherds.html">Full Caucasian Shepherd details <span aria-hidden="true">&rarr;</span></a></article></div>
-					<div class="section-heading breed-program-heading"><div><p class="eyebrow">Research before every pairing</p><h2>Thoughtful breeding, <em>built on purpose.</em></h2></div><p>Every breeding decision is guided by extensive research, careful planning, and an unwavering commitment to quality.</p></div>
-				<div class="about-story-grid"><section class="about-story-block"><h3>Bloodlines with purpose</h3><p>We hand-select exceptional bloodlines from across the globe, sourcing from renowned breeders and proven working pedigrees. This international approach combines genetic diversity with breed purity in a responsible, forward-thinking program.</p><p>The true essence of a breed lies not only in appearance, but in temperament, instinct, and character. We work to preserve the natural traits that made these breeds legendary guardians.</p></section><section class="about-story-block"><h3>Health is the cornerstone</h3><p>Every breeding pair is carefully evaluated for health, structural soundness, and temperament. We strive to produce physically robust, mentally stable, healthy, confident, and well-balanced companions capable of fulfilling their original roles.</p><p>We are not driven by trends or quantity. Each litter represents years of planning and dedication to the highest standards.</p></section></div>
-				<div class="about-closing"><p>Our commitment is to safeguard these breeds with dogs that reflect their strength, intelligence, courage, and character.</p><p>Kyra Kennels: where heritage, health, and excellence come together.</p></div>
+				<section class="breeding-plan" id="breeding-plan" aria-labelledby="breeding-plan-title">
+					<div class="section-heading breed-program-heading"><div><p class="eyebrow">Research before every pairing</p><h2 id="breeding-plan-title">Breeding plan</h2></div><p>Every breeding decision is guided by extensive research, careful planning, and an unwavering commitment to quality.</p></div>
+					<div class="about-story-grid"><section class="about-story-block"><h3>Bloodlines with purpose</h3><p>We hand-select exceptional bloodlines from across the globe, sourcing from renowned breeders and proven working pedigrees. This international approach combines genetic diversity with breed purity in a responsible, forward-thinking program.</p><p>The true essence of a breed lies not only in appearance, but in temperament, instinct, and character. We work to preserve the natural traits that made these breeds legendary guardians.</p></section><section class="about-story-block"><h3>Health is the cornerstone</h3><p>Every breeding pair is carefully evaluated for health, structural soundness, and temperament. We strive to produce physically robust, mentally stable, healthy, confident, and well-balanced companions capable of fulfilling their original roles.</p><p>We are not driven by trends or quantity. Each litter represents years of planning and dedication to the highest standards.</p></section></div>
+					<div class="about-closing"><p>Our commitment is to safeguard these breeds with dogs that reflect their strength, intelligence, courage, and character.</p><p>Kyra Kennels: where heritage, health, and excellence come together.</p></div>
+				</section>
 			</div>
 		</section>
 		<section class="breed-article section-wrap" id="tibetan-mastiffs" aria-labelledby="tibetan-title">
