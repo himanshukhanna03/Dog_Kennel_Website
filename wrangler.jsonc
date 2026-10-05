@@ -4,10 +4,6 @@
   "assets": {
     "directory": "."
   },
-<<<<<<< HEAD
-=======
-  // ...
->>>>>>> 0b93ca80e23b11f1084351d26a6500615d615f70
   "observability": {
     "logs": {
       "enabled": true,
@@ -20,11 +16,5 @@
       "head_sampling_rate": 1,
       "persist": true
     }
-<<<<<<< HEAD
   }
 }
-=======
-  },
-  // ...
-}
->>>>>>> 0b93ca80e23b11f1084351d26a6500615d615f70
