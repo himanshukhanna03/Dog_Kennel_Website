@@ -25,4 +25,8 @@ In Cloudflare, open **Workers & Pages**, create a **Pages** project, and connect
 
 Cloudflare Pages will publish the static files from the repository root and redeploy when new commits are pushed to `main`.
 
+## Deploy with Cloudflare Workers Builds
+
+The repository also includes a Wrangler configuration for deploying this static site as a Worker with static assets. Connect the GitHub repository to a Worker in **Workers & Pages** and use `npx wrangler deploy` as the deploy command. The configuration publishes the repository root, including the HTML pages, JavaScript, CSS, and `assests` media directory.
+
 The enquiry form is currently front-end only. Connect a form service or backend before relying on it to receive submissions.
